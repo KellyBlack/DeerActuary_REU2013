@@ -1,32 +1,27 @@
-function [ Ztrue, Xtrue ] = DeerPop( T, N, r1, h, F, alpha )
+function [ Z, X ] = DeerPop( T, N, r1, h, F, alpha )
 % Solution to our deer population Logistic SDE with harvest
 %   Detailed explanation goes here
-%randn('state',100)
 
-r2=r1-h;
-f=(r2/r1)*F;
-a=(alpha^2)-r2;  
-b=(.5*(alpha^2))-a;
+% rescale the parameters for the new harvest rate
+r2=r1-h;              % r tilde
+f=(r2/r1)*F;          % f tilde
+a=(alpha^2)-r2;       % a from linearization
 
-g0= 1-(r2/b); 
-% problem parameters
+b=(.5*(alpha^2))-a;   % quantity used a lot...
+
+g0= 1-(r2/b); % constant so that Z is initially 1
  
 dt=sqrt(T/N);
-dW = dt*randn(1,N);        
+dW = dt*randn(N+1,1);
+dW(1) = 0.0;         % W is initially 0
 W = cumsum(dW); 
 
 ds=T/N;
-s=ds:ds:T;    %time
+s=(0:ds:T)';    % time 
 
-for i=1:N
-    Q(i)=cumsum(exp(b*s(i) + alpha*W(i))*dW(i));    
-end
-
-
-Ztrue = (r2/b) + g0*exp((-b*T)-(alpha*W)) + exp((-b*T)-(alpha*W))*((-alpha*r2)/b)*Q(i);
-
-Xtrue=f + (f./Ztrue);
+Q = cumsum(exp(b*s+alpha*W).*dW);   %integral part of analytic solution
+Z = (r2/b) + g0*exp((-b*s)-(alpha*W)) + exp((-b*s)-(alpha*W)).*((-alpha*r2)/b).*Q; %analytic solution of Z
+X =(f./Z); % transform back to X
 
 
-end
 
