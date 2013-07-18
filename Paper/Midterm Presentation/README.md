@@ -1,9 +1,8 @@
 DeerActuary_REU2013
-
+===================
+Paper Directory
 Shared files for the SUNY Potsdam REU group in stochastic DEs
 
-The programs, scripts, data, and papers for our efforts.
-To be organized.
 
 All files are subject to the following license.
 The MIT License (MIT)
@@ -28,4 +27,5 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+>>>>>>> master
 

@@ -1,9 +1,10 @@
 DeerActuary_REU2013
-
+===================
+R Directory
 Shared files for the SUNY Potsdam REU group in stochastic DEs
 
-The programs, scripts, data, and papers for our efforts.
-To be organized.
+This is the directory that contains the R programs
+to do the Monte Carlo simulations.
 
 All files are subject to the following license.
 The MIT License (MIT)
@@ -27,5 +28,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
 
 
