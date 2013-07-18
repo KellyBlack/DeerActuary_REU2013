@@ -1,6 +1,6 @@
-function [ Xtrue, Xem, Xmil  ] = deerSim_R( T, N, r1, h, F, alpha )
-%UNTITLED5 Summary of this function goes here
-%   Detailed explanation goes here
+function [ Ztrue, Xtrue, Xem, Xmil  ] = deerSim_R( T, N, r1, h, F, alpha )
+%Simulation of Deer Population
+%   Uses Xtrue (better approximation), Euler-Maruyama, Milstein 
 
 %define rtilde and ftilde with input
 rtilde = r1-h;
@@ -37,7 +37,7 @@ for i=1:N
 end
 
 %evaluates Z in its entirety
-Ztrue = rtilde/(.5*b^2 - a) + g0 * phi - b * rtilde/(.5*b^2 - a) * phi .* integral;
+Ztrue = rtilde/(.5*b*b - a) + g0 * phi - b * rtilde/(.5*b*b - a) * phi .* integral;
 
 %with Ztrue, Xtrue can be calculated
 Xtrue = ftilde./Ztrue;
