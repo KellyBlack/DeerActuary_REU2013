@@ -16,7 +16,7 @@ dW = dt*randn(N+1,1);
 %dW(1) = 0.0;         % W is initially 0
 W = [0; cumsum(dW(1:N))]; 
 
-ds=T/N;
+ds=(T/N);
 s=(0:ds:T)';    % time 
 
 Q = cumsum(exp(b*s+alpha*W).*dW);   %integral part of analytic solution
