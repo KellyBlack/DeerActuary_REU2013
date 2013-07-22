@@ -140,30 +140,21 @@ g     <- 0.0001
 
 # Now approximate the value of the bond fund.
 m0     <- (beta * F - P)/(I - g)
-Mem    <- Mmil <- vector(length = L + 1)
-Mem[1] <- Mmil[1] <- m0
-Mtemp1 <- Mtemp2 <- m0
-for (i in 1:L)
+Mmil <- vector(length = N + 1)
+Mmil[1] <- m0
+Mtemp <- m0
+for (i in 1:N)
 {
-  Winc <- sum(dw[(R * (i - 1) + 1):(R * i)])
-  Mtemp1 <- Mtemp1 + Dt * (I * Mtemp1 - beta * Xtrue[i] + P) -
-            Winc * gamma * Xtrue[i]
-  Mem[i + 1] <- Mtemp1
-  Mtemp2 <- Mtemp2 + Dt * (I * Mtemp2 - beta * Xtrue[i] + P) -
-            Winc * gamma * Xtrue[i] +
-            0.5 * gamma * gamma * Xtrue[i] * (Winc * Winc - Dt)
-  Mmil[i + 1] <- Mtemp2
+  Mtemp <- Mtemp + dt * (I * Mtemp - beta * Xtrue[i] + P) -
+            dw[i] * gamma * Xtrue[i] +
+            0.5 * gamma * gamma * Xtrue[i] * (dw[i] * dw[i] - dt)
+  Mmil[i + 1] <- Mtemp
 }
 
 
 if(TESTING)
 {
   # Plot the value of the funds
-  plot(courseTime, Mem, type = "p", pch = 16,
-       col = "light blue", lwd = 2, xlab = "T", ylab = "M",
-       main = "Insurance Payout")
-  points(courseTime, Mmil, pch = 4, col = "purple", lwd = 2)
-  legend("bottomright", legend = c("Euler", "Milstein"),
-         col = c("light blue", "purple"), pch = c(16, 4),
-         lwd = c(1, 2), cex = 0.8)
+  plot(t, Mmil, type = "p", pch = 4, col = "purple",
+       xlab = "T", ylab = "M", main = "Insurance Payout")
 }

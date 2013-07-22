@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+T <- 10
+N <- 3650
+r <- 5
+F <- 1000000
+alpha <- 1
+=======
 # Deer Population
 
 T <- 10
@@ -5,6 +12,7 @@ N <- 3650
 r <- 10			# r tilde
 F <- 1000000		# F tilde
 alpha <- 0.1
+>>>>>>> origin/linton_dev
 
 dt <- T/N
 dw <- sqrt(dt) * rnorm(N)
@@ -28,14 +36,27 @@ for (i in 1:N) {
 
 Ztrue <- r/(0.5 * b ^ 2 - a) + g0 * phi - b * r/(0.5 * b ^ 2 - a) * phi * integral
 Xtrue <- F/Ztrue
+<<<<<<< HEAD
+plot(seq(0, T, dt), Xtrue, type = "l", col = "orange", lwd = 2, ylim = c(0, 2000000), xlab = "T", ylab = "X", main = "Euler vs. Milstein")
+=======
 plot(seq(0, T, dt), Xtrue, type = "l", col = "orange", lwd = 2, ylim = c(900000, 1100000), xlab = "T", ylab = "X", main = "Deer Population")
+>>>>>>> origin/linton_dev
 
 L <- 730
 R <- N/L
 Dt <- R * dt
+<<<<<<< HEAD
+Xem <- vector(length = L + 1)
+Xem[1] <- x0
+Xmil <- vector(length = L + 1)
+Xmil[1] <- x0
+Xtemp1 <- x0
+Xtemp2 <- x0
+=======
 Xem <- Xmil <- vector(length = L + 1)
 Xem[1] <- Xmil[1] <- x0
 Xtemp1 <- Xtemp2 <- x0
+>>>>>>> origin/linton_dev
 for (i in 1:L) {
   Winc <- sum(dw[(R * (i - 1) + 1):(R * i)])
   Xtemp1 <- Xtemp1 + Dt * r * Xtemp1 * (1 - Xtemp1/F) + alpha * Xtemp1 * Winc
@@ -45,6 +66,9 @@ for (i in 1:L) {
 }
 points(seq(0, T, Dt), Xem, col = "green", pch = 16)
 points(seq(0, T, Dt), Xmil, col = "red", pch = 4, lwd = 2)
+<<<<<<< HEAD
+legend("bottomleft", legend = c("Euler", "Milstein"), col = c("green", "red"), pch = c(16, 4), lwd = c(1, 2), cex = 0.8)
+=======
 legend("bottomleft", legend = c("Euler", "Milstein"), col = c("green", "red"), pch = c(16, 4), lwd = c(1, 2), cex = 0.8)
 
 # Population Distribution
@@ -95,3 +119,4 @@ for (i in 1:L) {
 plot(seq(0, T, Dt), Mem, type = "p", pch = 16, col = "light blue", lwd = 2, xlab = "T", ylab = "M", main = "Insurance Payout")
 points(seq(0, T, Dt), Mmil, pch = 4, col = "purple", lwd = 2)
 legend("bottomright", legend = c("Euler", "Milstein"), col = c("light blue", "purple"), pch = c(16, 4), lwd = c(1, 2), cex = 0.8)
+>>>>>>> origin/linton_dev
