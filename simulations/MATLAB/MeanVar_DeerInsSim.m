@@ -3,16 +3,16 @@ function [ Xmean, Xvar, Mmean, Mvar ] = MeanVar_DeerInsSim( alpha, gamma, P )
 %   Detailed explanation goes here
 
 T = 10;
-N = 25000;
-r1 = ;
-h = ;
-F = ;
-rho = ;
-beta = ;
-g = ;
+N = 10000; %start with 10000 then use 25000
+r1 = 1.7;
+h = .16;
+F = 27356;
+rho = .004; %log(1+rate)
+beta = 250; %
+g = .04;
 
 for i=1:1000
-    [Xtrue, Mem] = DeerInsSim(  T, N, r1, h, F, alpha, rho, beta, P, gamma, g );
+    [Xtrue, Mem] = DeerInsSim( T, N, r1, h, F, alpha, rho, beta, P, gamma, g );
 end
 
 Xmean = mean(Xtrue);

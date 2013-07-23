@@ -1,4 +1,4 @@
-function [ Z, X , Xem] = DeerPop_Beth( T, N, r1, h, F, alpha )
+function [X , Xem] = DeerPop_Beth( T, N, r1, h, F, alpha )
 % Solution to our deer population Logistic SDE with harvest
 %   Detailed explanation goes here
 

@@ -7,7 +7,7 @@ function [ Mem] = InsPayout( T, N, r1, h, F, alpha, rho, beta, P, gamma, g )
 rtilde = r1-h;
 ftilde = (rtilde/r1)*F;
 
-[ Ztrue , Xtrue, Xem ] = DeerPop_Beth( T, N, r1, h, F, alpha );
+[ Xtrue, Xem ] = DeerPop_Beth( T, N, r1, h, F, alpha );
 
 L = N;
 dt = T/N;
