@@ -7,9 +7,9 @@ T = 10;
 N = 10000; %start with 10000 then use 25000
 r1 = 1.7;
 h = .16;
-F = 27356;
+F = 28000;
 rho = .004; %log(1+rate)
-beta = 200; %
+beta = .003*3000; %
 g = .04;
 
 for i=1:10

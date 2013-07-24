@@ -1,32 +1,24 @@
 
-
-
-
-\section{Stochastic}
-
-\begin{frame}
-    \frametitle{``Noise"}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Modeling}
-\end{frame}
-
-
-
-
-
-
 \section{Model}
+
+\begin{frame}
+    \frametitle{Stochastics}
+	\begin{itemize}
+		\item Brownian Motion (Random Walks)
+		\item Gaussian White ``Noise"
+	\end{itemize}
+%%%%%%%%%% Brownian Motion, Gaussian White Noise
+\end{frame}
+
+
 
 \begin{frame}
     \frametitle{Models}
 	\begin{eqnarray}
-		dx &=& \tilde{r} x \left( 1- \frac{x}{\tilde{f}}\right) dt +\alpha a dW \\
-		dm &=& (Rm - \beta x + P) dt - \gamma x dW
+		dx &=& \tilde{r} x \left( 1- \frac{x}{\tilde{f}}\right) dt +\alpha x \, dW \\
+		dm &=& ( \rho m - \beta x + P) dt - \gamma x \, dW
 	\end{eqnarray}
 	\begin{itemize}
-		\item B - Bailout
 		\item Parameters - $\alpha$, $\gamma$, $P$
 	\end{itemize}
 \end{frame}
@@ -34,23 +26,28 @@
 
 
 
-
 \section{Numerics}
 
 \begin{frame}
-    \frametitle{Milstein}
+    \frametitle{Methods of Approximations}
+	Euler-Maruyama Method
 	\begin{eqnarray*}
-		X_{j} &=& X_{j-1} + \triangle tf(X_{j-1}) + g(X_{j-1})(W(\tau_{j})-W(\tau_{j-1})) 			\nonumber\\ 
-		&& + \frac{1}{2} g(X_{j-1})g'(X_{j-1})((W(\tau_{j})-W(\tau_{j-1}))^{2}-\triangle t)
-		\\ j &=& 1,2,... ,L
-%%%%%%%%%%% Plot Simualtion results
+		X_{j} &=& X_{j-1} + f(X_{j-1})\triangle t+ g(X_{j-1})(W(\tau_{j})-W(\tau_{j-1})) \\
+		 j &=& 1,2,... ,L \\
 	\end{eqnarray*}
-
+	Milstein Method
+	\begin{eqnarray*}
+		X_{j} &=& X_{j-1} + \triangle tf(X_{j-1}) + g(X_{j-1})(W(\tau_{j})-W(\tau_{j-1})) 	\nonumber\\ 
+		&& + \frac{1}{2} g(X_{j-1})g'(X_{j-1})((W(\tau_{j})-W(\tau_{j-1}))^{2}-\triangle t)
+		\\ j &=& 1,2,... ,L		
+	\end{eqnarray*}
+%%%%%%%%%%% Plot Simulation results
 \end{frame}
 
 
 \begin{frame}
     \frametitle{Benchmark?}
+%%%%%%% Ways to test our data was consistent - hist, raw data, etc
 \end{frame}
 
 
