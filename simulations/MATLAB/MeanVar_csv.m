@@ -14,7 +14,7 @@ tic
 for i=alpha0:dalpha:alpha
     for j=gamma0:dgamma:gamma
         for k=P0:dP:P
-            fp=fopen('meanvar.csv','a');
+            fp=fopen('meanvar5000.csv','a');
             [Xmean, Xvar, Mmean, Mvar] = MeanVar_DeerInsSim(i, j, k);
             fprintf(fp,'%f, %f, %f, %f, %f, %f, %f\n',i, j, k, Xmean, Xvar, Mmean, Mvar);
             fclose(fp);
