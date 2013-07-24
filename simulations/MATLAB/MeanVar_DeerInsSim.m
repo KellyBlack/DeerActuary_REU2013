@@ -2,6 +2,7 @@ function [ Xmean, Xvar, Mmean, Mvar ] = MeanVar_DeerInsSim( alpha, gamma, P )
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
 
+%Problem Parameters
 T = 10;
 N = 10000; %start with 10000 then use 25000
 r1 = 1.7;

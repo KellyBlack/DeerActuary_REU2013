@@ -1,4 +1,4 @@
-function [ Mem] = InsPayout( T, N, r1, h, F, alpha, rho, beta, P, gamma, g )
+function [ Mem ] = InsPayout( T, N, r1, h, F, alpha, rho, beta, P, gamma, g )
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
