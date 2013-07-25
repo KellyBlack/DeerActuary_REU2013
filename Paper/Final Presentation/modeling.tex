@@ -5,7 +5,15 @@
     \frametitle{Stochastics}
 	\begin{itemize}
 		\item Brownian Motion (Random Walks)
-		\item Gaussian White ``Noise"
+		\item Properties
+	\begin{enumerate}[i]
+		\item $W(t)$ is continuous
+		\item $W(t)$ is no where differentiable
+		\item If $t_{1}<t_{2}<t_{3}<t_{4}$, \\
+			$W(t_{1}), W(t_{2})-W(t_{1}),  W(t_{3})-W(t_{4})$ are independent random variables
+		\item If $0 \le s\le t$ then $W(t)-W(s) \sim N(0, t-s)$
+	\end{enumerate}
+		\item Gaussian White ``Noise" - $dW$
 	\end{itemize}
 %%%%%%%%%% Brownian Motion, Gaussian White Noise
 \end{frame}
@@ -19,7 +27,8 @@
 		dm &=& ( \rho m - \beta x + P) dt - \gamma x \, dW
 	\end{eqnarray}
 	\begin{itemize}
-		\item Parameters - $\alpha$, $\gamma$, $P$
+		\item Known Parameters - $\tilde{r}$, $\tilde{f}$, $\rho$, $\beta$
+		\item Unknown Parameters - $\alpha$, $\gamma$, $P$
 	\end{itemize}
 \end{frame}
 
@@ -27,6 +36,13 @@
 
 
 \section{Numerics}
+
+\begin{frame}
+   \frametitle{Approximation}
+%%%%%%%%%Include figure
+\end{frame}
+
+
 
 \begin{frame}
     \frametitle{Methods of Approximations}
