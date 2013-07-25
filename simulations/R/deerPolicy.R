@@ -112,7 +112,7 @@ if (TESTING) {
 # First set the parameters used for the bond fund equation
 rho <- 0.004    # Government bond rate
 beta <- 9     # Cost of claim proportional to population
-P <- 225000       # Premium
+P <- 230000       # Premium
 gamma <- 0.1    # Noise coefficient
 g <- 0.04       # Profit margin
 
@@ -123,8 +123,11 @@ Mmil[1] <- m0
 Mtemp <- m0
 for (i in 1:N) {
   Mtemp <- Mtemp + dt * (rho * Mtemp - beta * Xtrue[i] + P) -
-    dw[i] * gamma * Xtrue[i] +
-    0.5 * gamma * gamma * Xtrue[i] * (dw[i] * dw[i] - dt)
+    dw[i] * gamma * Xtrue[i] -
+    0.5 * gamma * alpha * Xtrue[i] * (dw[i] * dw[i] - dt)
+  if (Mtemp < 0) {
+    Mtemp <- 0
+  }
   Mmil[i + 1] <- Mtemp
 }
 
@@ -137,10 +140,11 @@ if (TESTING) {
 # Simulate population and payout using different alpha, gamma and P
 
 T <- 10       # Set the final time
-N <- 100    # Set the number of sample points
+N <- 10000    # Set the number of sample points
 r <- 1.5  		# r tilde - The scaled growth factor
 F <- 25000	  # F tilde - The scaled carrying capacity
 dt <- T/N     # Calculate the time step
+t <- seq(0, T, dt)
 
 # Set the initial values
 x0 <- F
@@ -165,8 +169,9 @@ approx <- function(alpha, gamma, P) {   # Noise coefficient and premium
   # Approximate the stochastic integral for the z equation.
   # TODO - convert to a Milstein approximation.
   integral <- vector(length = N + 1)
-  integral <- c(0, cumsum(exp((0.5 * b ^ 2 - a) * t[1:N] + 
-                                b * w[1:N]) * dw[1:N]))
+  integral <- c(0, cumsum(exp((0.5 * b ^ 2 - a) * t[1:N] + b * w[1:N]) * dw +
+                            0.5 * b * exp((0.5 * b ^ 2 - a) * t[1:N] + 
+                                            b * w[1:N]) * (dw * dw - dt)))
   
   # Calculate the values of Z based on the approximation of the integral
   # above. Then undo the transformation to calculate the population.
@@ -181,8 +186,8 @@ approx <- function(alpha, gamma, P) {   # Noise coefficient and premium
   Mtemp <- m0
   for (i in 1:N) {
     Mtemp <- Mtemp + dt * (rho * Mtemp - beta * Xtrue[i] + P) -
-      dw[i] * gamma * Xtrue[i] +
-      0.5 * gamma * gamma * Xtrue[i] * (dw[i] * dw[i] - dt)
+      dw[i] * gamma * Xtrue[i] -
+      0.5 * gamma * alpha * Xtrue[i] * (dw[i] * dw[i] - dt)
     Mmil[i + 1] <- Mtemp
   }
   
@@ -193,11 +198,11 @@ approx <- function(alpha, gamma, P) {   # Noise coefficient and premium
 
 alpha <- gamma <- P <- Xmean <- Xvar <- Mmean <- Mvar <- vector(length = 0)
 
-for (i in seq(0.02, 0.1, 0.02)) {
-  for (j in seq(0.02, 0.1, 0.02)) {
-    for (k in seq(5200, 6000, 200)) {
-      Xapp <- Mapp <- vector(length = 5)
-      for (l in 1:5) {
+for (i in seq(0.005, 0.1, 0.005)) {
+  for (j in seq(0.005, 0.1, 0.005)) {
+    for (k in seq(230000, 325000, 5000)) {
+      Xapp <- Mapp <- vector(length = 1000)
+      for (l in 1:1000) {
         App <- approx(i, j, k)
         Xapp[l] <- App[1]
         Mapp[l] <- App[2]
