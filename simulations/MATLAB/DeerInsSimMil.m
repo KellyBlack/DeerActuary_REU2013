@@ -15,15 +15,17 @@ s = (0:dt:T);
 clf;
 
 %Deer Population
-subplot(1, 2, 1);
+subplot(2, 1, 1);
 plot(s, Xtrue, 'g-', s, Xmil, 'rx')
 title('Deer Population');
 legend('Xtrue', 'Xmil')
+xlabel('t')
 
 %Insurance Payout
-subplot(1, 2, 2);
+subplot(2, 1, 2);
 plot(s, Mmil,'rx')
 title('Insurance Payout');
-legend('Mem')
+legend('Mmil')
+xlabel('t')
 
 %}

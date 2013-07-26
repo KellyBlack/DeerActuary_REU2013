@@ -37,5 +37,5 @@ for i=1:L
     Xmil(1, i+1) = Xtemp;
 end
 
-plot(s, X, 'g-', s, Xmil, 'rx');
-legend('Xtrue','Xmil')
+%plot(s, X, 'g-', s, Xmil, 'rx');
+%legend('Xtrue','Xmil')

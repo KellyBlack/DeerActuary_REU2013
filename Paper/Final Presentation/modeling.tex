@@ -40,13 +40,18 @@
 \begin{frame}
    \frametitle{Approximation}
 %%%%%%%%%Include figure
+\vspace*{-3em}
 	\begin{eqnarray*}
 		dX &=& f(X) \, dt + g(X) \, dW \\
 	\end{eqnarray*}
+\vspace*{-3em}
 	\begin{center}
-		$X_{j} =$ approximation of $X(t_{j})$
+		$X_{j} =$ approximation of $X(t_{j})$ \\ [20pt]
+	\includegraphics[height=4cm]{approximation}
 	\end{center}
+
 \end{frame}
+
 
 
 \begin{frame}
@@ -58,7 +63,6 @@
 	\end{eqnarray*}
 	Milstein Method - $O(\Delta t^{1.5})$
 	\begin{eqnarray*}
-
 		X_{j} &=& X_{j-1} + \triangle tf(X_{j-1}) + g(X_{j-1})(W(\tau_{j})-W(\tau_{j-1})) 	\nonumber\\ 
 		&& + \frac{1}{2} g(X_{j-1})g'(X_{j-1})((W(\tau_{j})-W(\tau_{j-1}))^{2}-\triangle t)\\
 		 j &=& 1,2,... ,L \\
@@ -69,30 +73,31 @@
 \begin{frame}
     \frametitle{Benchmark}
 	\framesubtitle{Paths}
-\vspace{-5mm}
-\includegraphics[height=6cm,width=12cm]{testpaths} 
+\hspace*{-2cm}
+\includegraphics[height=7cm]{testpaths} 
 \end{frame}
 
 
 \begin{frame}
     \frametitle{Benchmark}
 	\framesubtitle{Histogram}
-\includegraphics[height=6cm,width=6cm]{testhistX}
-\includegraphics[height=6cm,width=6cm]{testhistM}
+\hspace*{-5mm}
+\includegraphics[height=6cm]{testhistX}
+\includegraphics[height=6cm]{testhistM}
 \end{frame}
 
 
 \begin{frame}
     \frametitle{Benchmark}
-	\framesubtitle{Confidence Interval}
+	\framesubtitle{95\% Confidence Interval}
 \begin{center}
-	$\bar{x} \pm t_{(\alpha /2, df=n-1)} \frac{s}{\sqrt{n}}$
+	$\bar{x} \pm t_{(\alpha /2, df=n-1)} \frac{s}{\sqrt{n}}$ \\ 
+\vspace{5mm}
+\begin{tabular}{r c l c r c l}
+	$E[X]$ &=& 0 && $E[M]$ &=& 0 \\
+	$Var[X]$ &=& 0.0025  && $Var[M]$ &=& 1 
+\end{tabular}
 \end{center}
-\begin{eqnarray*}
-	E[X] = 0 && E[M] = 0 \\
-	Var[X] = 0.0025  && Var[M] = 1
-\end{eqnarray*}
-95 \% Confidence Interval
 \begin{itemize}
 	\item $\bar{X}$ (-0.0088, 0.0067)
 	\item $\bar{M}$ (-0.137, 0.217)

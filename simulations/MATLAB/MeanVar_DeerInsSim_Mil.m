@@ -1,11 +1,11 @@
-function [ Xmean, Xvar, Mmean, Mvar ] = MeanVar_DeerInsSim_Mil( alpha, gamma, P )
+function [ Xmean, Xvar, Mmean, Mvar ] = MeanVar_DeerInsSim_Mil( alpha, gamma, P, iterations )
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
 
-iterations = 10;
+;
 
 T = 10;
-N = 10000; %start with 10000 then use 25000
+N = 25000; %start with 10000 then use 25000
 r1 = 1.7;
 h = .16;
 F = 28000;

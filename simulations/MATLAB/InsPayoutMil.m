@@ -24,5 +24,5 @@ for i=1:N
     Mmil(i+1) = Mtemp;
 end
 
-plot(s, Mmil, 'bx')
-legend('Mmil')
+%plot(s, Mmil, 'bx')
+%legend('Mmil')
