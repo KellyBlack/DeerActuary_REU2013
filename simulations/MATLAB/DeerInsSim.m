@@ -1,12 +1,14 @@
 function [ Xtrue, Mem ] = DeerInsSim(  T, N, r1, h, F, alpha, rho, beta, P, gamma, g )
-%UNTITLED Summary of this function goes here
+%Calls X and Mem with same W
 %   Detailed explanation goes here
 
 dt = T/N;
-s = (0:dt:T);
+%s = (0:dt:T); %time
+dW = sqrt(dt)*randn(1, N+1);       
+W = [0, cumsum(dW(1:N))]; % W is initially 0
 
-[ Xtrue, Xem ] = DeerPop_Beth(T, N, r1, h, F, alpha);
-[ Mem ] = InsPayout(T, N, r1, h, F, alpha,  rho, beta, P, gamma, g);
+[ Xtrue ] = DeerPop_Beth(T, N, r1, h, F, alpha, dW, W);
+[ Mem ] = InsPayout(T, N, r1, h, F, alpha,  rho, beta, P, gamma, g, dW, W);
 
 
 
