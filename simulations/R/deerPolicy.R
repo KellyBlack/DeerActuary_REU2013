@@ -196,29 +196,22 @@ approx <- function(alpha, gamma, P) {   # Noise coefficient and premium
   
 }
 
-alpha <- gamma <- P <- Xmean <- Xvar <- Mmean <- Mvar <- vector(length = 0)
+# Create the file and write out a header
+setwd("C:/Users/Linton/Desktop")
+cat(file = "deerSim.csv", "alpha, gamma, P, Xmean, Xvar, Mmean, Mvar\n", 
+    append=FALSE)
 
-for (i in seq(0.005, 0.1, 0.005)) {
-  for (j in seq(0.005, 0.1, 0.005)) {
-    for (k in seq(230000, 325000, 5000)) {
+for (i in seq(0.01, 0.1, 0.01)) {
+  for (j in seq(0.01, 0.1, 0.01)) {
+    for (k in seq(230000, 275000, 5000)) {
       Xapp <- Mapp <- vector(length = 1000)
       for (l in 1:1000) {
         App <- approx(i, j, k)
         Xapp[l] <- App[1]
         Mapp[l] <- App[2]
       }
-      alpha <- c(alpha, i)
-      gamma <- c(gamma, j)
-      P <- c(P, k)
-      Xmean <- c(Xmean, mean(Xapp))
-      Xvar <- c(Xvar, var(Xapp))
-      Mmean <- c(Mmean, mean(Mapp))
-      Mvar <- c(Mvar, var(Mapp))
+      cat(file = "deerSim.csv", i, j, k, mean(Xapp), var(Xapp), 
+          mean(Mapp), var(Mapp), append = TRUE, sep = ",", fill = TRUE)
     }
   }
 }
-
-deerSim <- data.frame(alpha = alpha, gamma = gamma, P = P, Xmean = Xmean, 
-                      Xvar = Xvar, Mmean = Mmean, Mvar = Mvar)
-setwd("C:/Users/Linton/Desktop")
-write.csv(deerSim, file = "deerSim.csv", row.names = FALSE)
