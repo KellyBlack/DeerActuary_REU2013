@@ -11,7 +11,7 @@ h = .16;
 F = 28000;
 rho = .004; %log(1+rate)
 beta = 9; %.003*3000
-g = .04;
+g = .005;
 
 Xvec = zeros(1, iterations); %initialize X vector for final positions
 Mvec = zeros(1, iterations); %initialize M vector for final positions

@@ -2,7 +2,6 @@ function [ Xmean, Xvar, Mmean, Mvar ] = MeanVar_DeerInsSim_Mil( alpha, gamma, P,
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
 
-;
 
 T = 10;
 N = 25000; %start with 10000 then use 25000
@@ -11,13 +10,16 @@ h = .16;
 F = 28000;
 rho = .004; %log(1+rate)
 beta = 9; %.003*3000
-g = .04;
+g = .005;
+
+dt = sqrt(T/N);
 
 Xvec = zeros(1, iterations);
 Mvec = zeros(1, iterations);
 
 for i=1:iterations
-    [Xtrue, Mmil] = DeerInsSimMil( T, N, r1, h, F, alpha, rho, beta, P, gamma, g );
+    dW = dt*randn(1, N+1);
+    [Xtrue, Mmil] = DeerInsSimMil( T, N, r1, h, F, alpha, rho, beta, P, gamma, g, dW );
     Xvec(1,i) = Xtrue(N+1);
     Mvec(1,i) = Mmil(N+1);
 end

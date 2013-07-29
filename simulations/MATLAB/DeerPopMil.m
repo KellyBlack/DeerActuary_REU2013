@@ -1,4 +1,4 @@
-function [ X, Xmil ] = DeerPopMil( T, N, r1, h, F, alpha )
+function [ X, Xmil ] = DeerPopMil( T, N, r1, h, F, alpha, dW )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -10,8 +10,8 @@ b=(.5*(alpha^2))-a;
 
 g0= 1-(rtilde/b);
 
-dt=sqrt(T/N);
-dW = dt*randn(1, N+1);
+%dt = sqrt(T/N);
+%dW = dt*randn(1, N+1);
 W = [0, cumsum(dW(1:N))]; 
 
 x0 = ftilde;
