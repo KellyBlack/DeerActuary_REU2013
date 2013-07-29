@@ -2,13 +2,13 @@
 \section{Model}
 
 \begin{frame}
-    \frametitle{Stochastics}
+    \frametitle{Stochastic Modeling}
 	\begin{itemize}
 		\item Brownian Motion (Random Walks) - $W(t)$
 		\item Properties
 	\begin{enumerate}[i]
 		\item $W(t)$ is continuous
-		\item $W(t)$ is no where differentiable
+		\item $W(t)$ is nowhere differentiable
 		\item If $t_{1}<t_{2}<t_{3}<t_{4}$, \\
 			$W(t_{1}), W(t_{2})-W(t_{1}),  W(t_{3})-W(t_{4})$ are independent random variables
 		\item If $0 \le s\le t$ then $W(t)-W(s) \sim N(0, t-s)$
@@ -73,8 +73,13 @@
 \begin{frame}
     \frametitle{Benchmark}
 	\framesubtitle{Paths}
-\hspace*{-2cm}
-\includegraphics[height=7cm]{testpaths} 
+\vspace*{-1cm}
+\hspace*{-1cm}
+\begin{eqnarray*}
+	dx &=& \alpha dW, \\
+	dm &=& \left( rm- \frac{r}{\alpha}x \right) dt + dW.
+\end{eqnarray*}
+\includegraphics[height=6cm]{testpaths} 
 \end{frame}
 
 
@@ -106,10 +111,30 @@
 
 
 \begin{frame}
+    \frametitle{Models}
+	\begin{eqnarray}
+		dx &=& \tilde{r} x \left( 1- \frac{x}{\tilde{f}}\right) dt +\alpha x \, dW \\
+		dm &=& ( \rho m - \beta x + P) dt - \gamma x \, dW
+	\end{eqnarray}
+	\begin{itemize}
+		\item Known Parameters - $\tilde{r}$, $\tilde{f}$, $\rho$, $\beta$
+		\item Unknown Parameters - $\alpha$, $\gamma$, $P$
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
     \frametitle{Parameter Space}
-\hspace*{-2cm}
+\hspace*{-1cm}
 %%%%%%%%%% Include 3D plot of parameter space
 \includegraphics[height=7cm]{parameterspace}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Parameter Space}
+\hspace*{-1cm}
+%%%%%%%%%% Include 3D plot of parameter space
+\includegraphics[height=7cm]{parameterspace2}
 \end{frame}
 
 
