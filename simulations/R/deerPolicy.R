@@ -22,14 +22,13 @@ if (TESTING) {
   if (length(dev.list()) > 0) {
     dev.off()
   }
-  par(mfrow = c(2, 2))
 }
 
 T <- 10       # Set the final time
-N <- 10000    # Set the number of sample points
+N <- 25000    # Set the number of sample points
 r <- 1.5			# r tilde - The scaled growth factor
 F <- 25000	  # F tilde - The scaled carrying capacity
-alpha <- 0.1  # Noise coeff. in the deer equation.
+alpha <- 0.05  # Noise coeff. in the deer equation.
 
 # Calculate the time step and generate the random numbers
 dt <- T/N
@@ -67,7 +66,7 @@ if (TESTING) {
 
 # Approximate the value of the transformed variable used to
 # approximate the population.
-L <- 2500
+L <- 5000
 R <- N/L
 Dt <- R * dt
 Xmil <- vector(length = L + 1)
@@ -86,34 +85,12 @@ if (TESTING) {
   points(courseTime, Xmil, col = "green", pch = 4)
 }
 
-# Now transform the value of z into the population Distribution
-Z10 <- vector(length = 1000)
-for (i in 1:1000) {
-  dw <- sqrt(dt) * rnorm(N)
-  w <- c(0, cumsum(dw))
-  phi <- exp((a - 0.5 * b ^ 2) * T - b * w[N + 1])
-  integral <- 0
-  integral <- sum(exp((0.5 * b ^ 2 - a) * t[1:N] + b * w[1:N]) * dw)
-  Ztrue <- r/(0.5 * b ^ 2 - a) +
-    g0 * phi - b * r/(0.5 * b ^ 2 - a) * phi * integral
-  Z10[i] <- Ztrue
-}
-
-if (TESTING) {
-  cat("The sample mean of Z10 is ",mean(Z10),"\n",
-      "The sample standard deviation of Z10 is ",sd(Z10),"\n");
-  hist(Z10, probability = TRUE, xlab = "Z", ylab = "Frequency density",
-       main = "Distribution of Z", col = "grey")
-  qqnorm(Z10)
-}
-
-
 # Approximate the amount of money in the bond fund
 # First set the parameters used for the bond fund equation
 rho <- 0.004    # Government bond rate
 beta <- 9     # Cost of claim proportional to population
-P <- 230000       # Premium
-gamma <- 0.1    # Noise coefficient
+P <- 275000       # Premium
+#gamma <- 0.1    # Noise coefficient
 g <- 0.04       # Profit margin
 
 # Now approximate the value of the bond fund.
@@ -123,8 +100,8 @@ Mmil[1] <- m0
 Mtemp <- m0
 for (i in 1:N) {
   Mtemp <- Mtemp + dt * (rho * Mtemp - beta * Xtrue[i] + P) -
-    dw[i] * gamma * Xtrue[i] -
-    0.5 * gamma * alpha * Xtrue[i] * (dw[i] * dw[i] - dt)
+    dw[i] * beta * alpha * Xtrue[i] -
+    0.5 * beta * alpha * alpha * Xtrue[i] * (dw[i] * dw[i] - dt)
   if (Mtemp < 0) {
     Mtemp <- 0
   }
@@ -140,7 +117,7 @@ if (TESTING) {
 # Simulate population and payout using different alpha, gamma and P
 
 T <- 10       # Set the final time
-N <- 10000    # Set the number of sample points
+N <- 25000    # Set the number of sample points
 r <- 1.5  		# r tilde - The scaled growth factor
 F <- 25000	  # F tilde - The scaled carrying capacity
 dt <- T/N     # Calculate the time step
@@ -154,7 +131,7 @@ rho <- 0.004    # Government bond rate
 beta <- 9     # Cost of claim proportional to population
 g <- 0.04       # Profit margin
 
-approx <- function(alpha, gamma, P) {   # Noise coefficient and premium
+approx <- function(alpha, P) {   # Noise coefficient and premium
   
   # Generate the random numbers
   dw <- sqrt(dt) * rnorm(N)
@@ -186,8 +163,8 @@ approx <- function(alpha, gamma, P) {   # Noise coefficient and premium
   Mtemp <- m0
   for (i in 1:N) {
     Mtemp <- Mtemp + dt * (rho * Mtemp - beta * Xtrue[i] + P) -
-      dw[i] * gamma * Xtrue[i] -
-      0.5 * gamma * alpha * Xtrue[i] * (dw[i] * dw[i] - dt)
+      dw[i] * beta * alpha * Xtrue[i] -
+      0.5 * beta * alpha * alpha * Xtrue[i] * (dw[i] * dw[i] - dt)
     Mmil[i + 1] <- Mtemp
   }
   
@@ -198,20 +175,34 @@ approx <- function(alpha, gamma, P) {   # Noise coefficient and premium
 
 # Create the file and write out a header
 setwd("C:/Users/Linton/Desktop")
-cat(file = "deerSim.csv", "alpha, gamma, P, Xmean, Xvar, Mmean, Mvar\n", 
+cat(file = "deerSim1.csv", "alpha, P, X, M\n", append=FALSE)
+
+for (i in 1:1000) {
+  App <- approx(0.05, 275000)
+  cat(file = "deerSim1.csv", 0.05, 275000, App[1], App[2], append = TRUE, 
+      sep = ",", fill = TRUE)
+}
+
+deerSim1 <- read.csv(file = "deerSim1.csv", header = TRUE)
+hist(deerSim1$X, probability = TRUE, xlab = "X", ylab = "Frequency density",
+     main = "Distribution of X", col = "grey")
+hist(deerSim1$M, probability = TRUE, xlab = "M", ylab = "Frequency density",
+     main = "Distribution of M", col = "grey")
+
+# Create the file and write out a header
+setwd("C:/Users/Linton/Desktop")
+cat(file = "deerSim2.csv", "alpha, P, Xmean, Xvar, Mmean, Mvar\n", 
     append=FALSE)
 
 for (i in seq(0.01, 0.1, 0.01)) {
-  for (j in seq(0.01, 0.1, 0.01)) {
-    for (k in seq(230000, 275000, 5000)) {
-      Xapp <- Mapp <- vector(length = 1000)
-      for (l in 1:1000) {
-        App <- approx(i, j, k)
-        Xapp[l] <- App[1]
-        Mapp[l] <- App[2]
-      }
-      cat(file = "deerSim.csv", i, j, k, mean(Xapp), var(Xapp), 
-          mean(Mapp), var(Mapp), append = TRUE, sep = ",", fill = TRUE)
+  for (j in seq(230000, 325000, 5000)) {
+    Xapp <- Mapp <- vector(length = 1000)
+    for (k in 1:1000) {
+      App <- approx(i, j)
+      Xapp[k] <- App[1]
+      Mapp[k] <- App[2]
     }
+    cat(file = "deerSim2.csv", i, j, mean(Xapp), var(Xapp), 
+        mean(Mapp), var(Mapp), append = TRUE, sep = ",", fill = TRUE)
   }
 }
