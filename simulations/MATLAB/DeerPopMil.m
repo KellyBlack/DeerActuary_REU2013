@@ -1,4 +1,4 @@
-function [ X, Xmil ] = DeerPopMil( T, N, r1, h, F, alpha, dW )
+function [ X ] = DeerPopMil( T, N, r1, h, F, alpha, dW )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
