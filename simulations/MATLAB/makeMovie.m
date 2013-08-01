@@ -19,6 +19,7 @@ b=(.5*(alpha^2))-a;
 g0= 1-(rtilde/b);
 
 % Variables for the bond fund
+
 g = .05;
 m0 = (beta*ftilde - P)/(rho-g);
 rho = .004; %log(1+rate)

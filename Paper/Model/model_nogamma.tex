@@ -1,0 +1,59 @@
+\documentclass[11pt]{article}
+\usepackage[lmargin=1in, textwidth=6.75in]{geometry}
+\usepackage{fancyhdr}
+
+
+\lhead{}
+\chead{}
+\rhead{}
+\lhead{Liu, Sweeney, Zhou}
+\lfoot{}
+\cfoot{SDE}
+\rfoot{\today}
+
+\title{Stochastic Differential Equations \\ Human and Deer-Interactions: Actuarial Applications}
+\author{Candace Liu, Beth Sweeney, Linton Zhou}
+\date{\today}
+
+\pagestyle{fancy}
+\begin{document}
+\maketitle
+
+\section{Current Model}
+After analyzing our previous model with $\gamma$, we realized that the noise term in $dm$ can be scaled with $\beta$. 
+\begin{eqnarray*}
+dx &=& \tilde{r}x \left( 1-\frac{x}{\tilde{f}} \right) + \alpha x dW \\
+dm &=& (\rho m + P - \beta x) dt - \beta x dW
+\end{eqnarray*}
+\\
+
+$\beta$ becomes:
+\begin{eqnarray*}
+	\frac{143}{25000} &=& 0.0057 \\
+	\beta &=& 3000(0.0057)
+\end{eqnarray*}
+the dimensions of the values are  143 collisions per year, 25000 deers (carrying capacity), $\beta$ is \$ per deer per year and 3000 is \$ per collision.
+
+\section{$h$ \& $hx$}
+Original DE:
+\begin{eqnarray*}
+	dx &=& rx \left( 1-\frac{x}{k} \right) - hx \\
+	&=& rk- rx^{2} - hx \\
+	&=& rx \left( k - \frac{h}{r} - x \right)
+\end{eqnarray*}
+\\
+
+We want to know what happens to $hx$ when we change $h$:
+\begin{eqnarray*}
+	x &=& \frac{rk-h}{r+rce^{-t(rk-h)}} \\
+	\lim_{t \to \infty} x &=& \frac{rk-h}{r} \\
+	& =& k- \frac{h}{r} \\
+	hx &=& hk-\frac{h^{2}}{r}
+\end{eqnarray*}
+From these results, there exists a parabolic relationship between $h$ and $hx$ where the vertex is $\frac{kr}{2}$.
+
+          
+
+
+
+\end{document}
