@@ -88,9 +88,8 @@ if (TESTING) {
 # Approximate the amount of money in the bond fund
 # First set the parameters used for the bond fund equation
 rho <- 0.004    # Government bond rate
-beta <- 9     # Cost of claim proportional to population
-P <- 275000       # Premium
-#gamma <- 0.1    # Noise coefficient
+beta <- 17     # Cost of claim proportional to population
+P <- 430000       # Premium
 g <- 0.04       # Profit margin
 
 # Now approximate the value of the bond fund.
@@ -100,8 +99,8 @@ Mmil[1] <- m0
 Mtemp <- m0
 for (i in 1:N) {
   Mtemp <- Mtemp + dt * (rho * Mtemp - beta * Xtrue[i] + P) -
-    dw[i] * beta * alpha * Xtrue[i] -
-    0.5 * beta * alpha * alpha * Xtrue[i] * (dw[i] * dw[i] - dt)
+    dw[i] * beta * Xtrue[i] - 0.5 * beta * alpha * Xtrue[i] * 
+    (dw[i] * dw[i] - dt)
   if (Mtemp < 0) {
     Mtemp <- 0
   }
@@ -128,7 +127,7 @@ x0 <- F
 z0 <- F/x0
 
 rho <- 0.004    # Government bond rate
-beta <- 9     # Cost of claim proportional to population
+beta <- 17     # Cost of claim proportional to population
 g <- 0.04       # Profit margin
 
 approx <- function(alpha, P) {   # Noise coefficient and premium
@@ -178,16 +177,20 @@ setwd("C:/Users/Linton/Desktop")
 cat(file = "deerSim1.csv", "alpha, P, X, M\n", append=FALSE)
 
 for (i in 1:1000) {
-  App <- approx(0.05, 275000)
-  cat(file = "deerSim1.csv", 0.05, 275000, App[1], App[2], append = TRUE, 
+  App <- approx(0.05, 475000)
+  cat(file = "deerSim1.csv", 0.05, 475000, App[1], App[2], append = TRUE, 
       sep = ",", fill = TRUE)
 }
 
 deerSim1 <- read.csv(file = "deerSim1.csv", header = TRUE)
 hist(deerSim1$X, probability = TRUE, xlab = "X", ylab = "Frequency density",
      main = "Distribution of X", col = "grey")
+qqnorm(deerSim1$X)
+qqline(deerSim1$X)
 hist(deerSim1$M, probability = TRUE, xlab = "M", ylab = "Frequency density",
      main = "Distribution of M", col = "grey")
+qqnorm(deerSim1$M)
+qqline(deerSim1$M)
 
 # Create the file and write out a header
 setwd("C:/Users/Linton/Desktop")
@@ -195,7 +198,7 @@ cat(file = "deerSim2.csv", "alpha, P, Xmean, Xvar, Mmean, Mvar\n",
     append=FALSE)
 
 for (i in seq(0.01, 0.1, 0.01)) {
-  for (j in seq(230000, 325000, 5000)) {
+  for (j in seq(430000, 525000, 5000)) {
     Xapp <- Mapp <- vector(length = 1000)
     for (k in 1:1000) {
       App <- approx(i, j)
